@@ -30,6 +30,17 @@ const logMiddleware = (req,res,next) => {
   console.log(string)
   next();
 }
+// Adding endpoint /api/whoami
+app.use("/api/whoami",(req,res)=>{
+   // Get the preferred language from the "Accept-Language" header
+   const preferredLanguage = req.headers['accept-language'];
+
+  // Get user ip
+  const ip = req.ip
+  // Get user agent
+  const ua = req.get('User-Agent');
+  res.json({ipaddress:ip,language:preferredLanguage,software:ua});
+})
 app.use(logMiddleware);
 // listen for requests :)
 var listener = app.listen(process.env.PORT || 3001, function () {
