@@ -24,7 +24,14 @@ app.get('/api/hello', function (req, res) {
   res.json({ greeting: 'hello API' });
 });
 
+// Adding console logging middleware
+const logMiddleware = (req,res,next) => {
+  var string = req.method + " " + req.path + " - " + req.ip;
+  console.log(string)
+  next();
+}
+app.use(logMiddleware);
 // listen for requests :)
-var listener = app.listen(process.env.PORT || 3000, function () {
+var listener = app.listen(process.env.PORT || 3001, function () {
   console.log('Your app is listening on port ' + listener.address().port);
 });
